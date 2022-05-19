@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class MonoSingleton<T> : MonoBehaviour where  T: MonoSingleton<T>
 {
-    private static volatile T instance = null;
+    private static volatile T _instance = null;
 
     public  static T Instance
     {
         get
         {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(T)) as T;
-            return instance;
+            if (_instance == null)
+                _instance = FindObjectOfType(typeof(T)) as T;
+            return _instance;
         }
     }
 }

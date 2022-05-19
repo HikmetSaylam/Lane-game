@@ -1,44 +1,62 @@
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Process : MonoBehaviour
 {
-    private string _message;
+    private TextMeshPro _textMesh;
     private int _operand;
     private int _operator;
+    private int _newNumOfPlayers;
 
-    void Start()
+    private void Awake()
     {
-        
+        this._textMesh = GetComponent<TextMeshPro>();
     }
-    
-    void Update()
+
+    private void Start()
     {
-        
+        CreatProcess();
     }
-    
-    public void CreatProcess()
+
+    private void CreatProcess()
     {
-        _operand = Random.Range(1, 4);
-        _operator = Random.Range(1, 10);
-        switch(_operand)
+        this._textMesh.text = "";
+        _operator = Random.Range(1, 4);
+        _operand = Random.Range(1, 10);
+        switch(_operator)
         {
             case 1:
-                _message += "+" + this._operator.ToString();
-                GameManager.Instance.SetNumOfPlayer(GameManager.Instance.GetNumOfPlayer()+this._operator);
+                _textMesh.text += "+" + this._operand.ToString();
                 break;
             case 2:
-                _message += "-" + this._operator.ToString();
-                GameManager.Instance.SetNumOfPlayer(GameManager.Instance.GetNumOfPlayer()-this._operator);
+                _textMesh.text += "-" + this._operand.ToString();
                 break;
             case 3:
-                _message += "*" + this._operator.ToString();
-                GameManager.Instance.SetNumOfPlayer(GameManager.Instance.GetNumOfPlayer()*this._operator);
+                _textMesh.text += "x" + this._operand.ToString();
                 break;
             case 4:
-                _message += "÷" + this._operator.ToString();
-                GameManager.Instance.SetNumOfPlayer(GameManager.Instance.GetNumOfPlayer()/this._operator);    
+                _textMesh.text += "÷" + this._operand.ToString();
                 break;
         }
+    }
+
+    private void CalculateNewNumOfPlayers()
+    {
+        this._newNumOfPlayers = _operator switch
+        {
+            1 => GameManager.Instance.GetNumOfPlayer() + _operand,
+            2 => GameManager.Instance.GetNumOfPlayer() - _operand,
+            3 => GameManager.Instance.GetNumOfPlayer() * _operand,
+            4 => GameManager.Instance.GetNumOfPlayer() / _operand,
+            _ => this._newNumOfPlayers
+        };
+    }
+    public int GetNewNumOfPlayers()
+    {
+        CalculateNewNumOfPlayers();
+        if (this._newNumOfPlayers < 1)
+            this._newNumOfPlayers = 1;
+        return this._newNumOfPlayers;
     }
 }

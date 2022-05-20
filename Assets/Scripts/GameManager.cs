@@ -1,34 +1,33 @@
-using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    private int _numOfPlayer = 1;
-    private readonly Queue<GameObject> _players = new Queue<GameObject>();
+    private int _numOfCharacters = 1;
+    private List<GameObject> _players = new List<GameObject>();
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject character;
     
 
-    public int GetNumOfPlayer()
+    public int GetNumOfCharacters()
     {
-        return this._numOfPlayer;
+        return this._numOfCharacters;
     }
-    public void AddPlayer()
+    public void AddPlayer(Transform parent)
     {
         var go = player;
-        Instantiate(go, character.transform.position, Quaternion.Euler(0, 0, 0));
-        _players.Enqueue(go);
-        this._numOfPlayer++;
+        var obje = Instantiate(go, transform.position, Quaternion.Euler(0, 0, 0));
+        obje.transform.parent = parent;
+        obje.transform.localPosition = new Vector3(0,0,(parent.childCount - 1) * -1.1f);
+        _players.Add(obje);
+        this._numOfCharacters++;
     }
 
     public void RemovePlayer()
     {
-        var go = _players.Peek();
-        _players.Dequeue();
-        Destroy(go);
-        this._numOfPlayer--;
+        var obje = _players.Last();
+        _players.Remove(obje);
+        Destroy(obje);
+        this._numOfCharacters--;
     }
 }

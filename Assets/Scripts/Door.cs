@@ -15,18 +15,18 @@ public class Door : MonoBehaviour
     {
         if (!other.gameObject.tag.Equals("Character")) return;
         this._newNumPlayers = _process.GetNewNumOfPlayers();
-        if (GameManager.Instance.GetNumOfPlayer() > this._newNumPlayers)
+        if (GameManager.Instance.GetNumOfCharacters() > this._newNumPlayers)
         {
-            while (GameManager.Instance.GetNumOfPlayer() != this._newNumPlayers)
+            while (GameManager.Instance.GetNumOfCharacters() != this._newNumPlayers)
             {
                 GameManager.Instance.RemovePlayer();
             }
         }
         else
         {
-            while (GameManager.Instance.GetNumOfPlayer() != this._newNumPlayers)
+            while (GameManager.Instance.GetNumOfCharacters() != this._newNumPlayers)
             {
-                GameManager.Instance.AddPlayer();
+                GameManager.Instance.AddPlayer(other.transform);
             }
         }
     }

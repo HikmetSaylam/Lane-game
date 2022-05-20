@@ -45,10 +45,10 @@ public class Process : MonoBehaviour
     {
         this._newNumOfPlayers = _operator switch
         {
-            1 => GameManager.Instance.GetNumOfPlayer() + _operand,
-            2 => GameManager.Instance.GetNumOfPlayer() - _operand,
-            3 => GameManager.Instance.GetNumOfPlayer() * _operand,
-            4 => GameManager.Instance.GetNumOfPlayer() / _operand,
+            1 => GameManager.Instance.GetNumOfCharacters() + _operand,
+            2 => GameManager.Instance.GetNumOfCharacters() - _operand,
+            3 => GameManager.Instance.GetNumOfCharacters() * _operand,
+            4 => GameManager.Instance.GetNumOfCharacters() / _operand,
             _ => this._newNumOfPlayers
         };
     }

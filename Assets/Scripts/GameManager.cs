@@ -21,6 +21,7 @@ public class GameManager : MonoSingleton<GameManager>
         obje.transform.localPosition = new Vector3(0,0,(parent.childCount - 1) * -1.1f);
         _players.Add(obje);
         this._numOfCharacters++;
+        ScoreText.Instance.SetScoreText(_numOfCharacters.ToString());
     }
 
     public void RemovePlayer()
@@ -29,5 +30,6 @@ public class GameManager : MonoSingleton<GameManager>
         _players.Remove(obje);
         Destroy(obje);
         this._numOfCharacters--;
+        ScoreText.Instance.SetScoreText(_numOfCharacters.ToString());
     }
 }

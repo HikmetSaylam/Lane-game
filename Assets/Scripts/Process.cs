@@ -22,7 +22,7 @@ public class Process : MonoBehaviour
     private void CreatProcess()
     {
         this._textMesh.text = "";
-        _operator = Random.Range(1, 4);
+        _operator = Random.Range(1, 5);
         _operand = Random.Range(1, 10);
         switch(_operator)
         {
